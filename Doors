@@ -1,0 +1,99 @@
+local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local wxbhub_doors = Library:MakeWindow({Name = "WxbHub / Doors", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub"})
+
+-- Info
+local Info = wxbhub_doors:MakeTab({
+	Name = "Info",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local hubinfo1 = Info:AddSection({
+	Name = "> WxbHub for Doors"
+})
+
+local hubinfo2 = Info:AddSection({
+	Name = "> Our discord server: https://discord.gg/JkXj6zZmB8"
+})
+
+-- Player
+local Player = wxbhub_doors:MakeTab({
+	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Player:AddSlider({
+	Name = "Walkspeed",
+	Min = 16,
+	Max = 50,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "amount",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end   
+})
+
+Player:AddBind({
+	Name = "[bp] Jump",
+	Default = Enum.KeyCode.Space,
+	Hold = false,
+	Callback = function()
+        local plr = game:GetService'Players'.LocalPlayer
+   	
+        plr.Character:WaitForChild'Humanoid':ChangeState("Jumping")
+        wait(0.5)
+	end
+})
+
+Player:AddButton({
+	Name = "[bp] Fly",
+	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nicuse/RobloxScripts/main/BypassedFly.lua"))() 
+
+        Fly(true)
+  	end    
+})
+
+-- Visuals
+local pcl = Instance.new("SpotLight")
+
+pcl.Brightness = 1
+
+pcl.Face = Enum.NormalId.Front
+
+pcl.Range = 90
+
+pcl.Parent = game.Players.LocalPlayer.Character.Head
+
+pcl.Enabled = false
+
+local Visual = wxbhub_doors:MakeTab({
+	Name = "Visual",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Visual:AddButton({
+	Name = "Fullbright",
+	Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/06iG6YkU", true))()
+  	end    
+})
+
+Visual:AddToggle({
+
+	Name = "Headlight",
+
+	Default = false,
+
+    Callback = function(Value)
+
+        pcl.Enabled = Value
+
+    end
+
+})
