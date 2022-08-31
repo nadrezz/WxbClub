@@ -14,7 +14,7 @@ local hubinfo1 = Info:AddSection({
 })
 
 local hubinfo2 = Info:AddSection({
-	Name = "> Our discord server: https://discord.gg/JkXj6zZmB8"
+	Name = "> Our discord server: copy in clipboard in key-system."
 })
 
 --Server
