@@ -14,8 +14,162 @@ local hubinfo1 = Info:AddSection({
 })
 
 local hubinfo2 = Info:AddSection({
-	Name = "> Our discord server: copy in clipboard in key-system."
+	Name = "> Our discord server: copy in clipboard in key-system." 
 })
+
+
+--Player
+local Player = wxbhub_evade:MakeTab({
+	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Player:AddBind({
+	Name = "INF. Jump bind",
+	Default = Enum.KeyCode.Space,
+	Hold = false,
+	Callback = function()
+        local plr = game:GetService'Players'.LocalPlayer
+   	
+        plr.Character:WaitForChild'Humanoid':ChangeState("Jumping")
+	end
+})
+
+Player:AddSlider({
+	Name = "Walkspeed",
+	Min = 0,
+	Max = 80,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "bananas",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+		if game.Players.LocalPlayer.Character.Humanoid.WalkSpeed < Value then
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+		end
+	end    
+})
+
+--Visual
+local Visual = wxbhub_evade:MakeTab({
+	Name = "Visual",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Visual:AddToggle({
+	Name = "ESP toggle",
+	Default = true,
+	Callback = function(Value)
+		getgenv().toggleespmpt = Value
+	end    
+})
+
+Visual:AddColorpicker({
+	Name = "ESP color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(Value)
+		getgenv().mptespcolour = Value
+	end	  
+})
+
+Visual:AddSlider({
+	Name = "ESP thickness",
+	Min = 1,
+	Max = 20,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "thickness",
+	Callback = function(Value)
+		getgenv().mptespthickness = Value
+	end    
+})
+
+local cam = workspace.CurrentCamera
+
+local rs = game:GetService'RunService'
+
+getgenv().toggleespmpt = true
+
+getgenv().Thickmpt = 2
+
+function esp(plr)
+
+   if game:GetService'Players':GetPlayerFromCharacter(plr) == nil then
+
+   local rat = Drawing.new("Line")
+
+   rs.RenderStepped:Connect(function()
+
+       if plr:FindFirstChild'HumanoidRootPart' then
+
+           local vector,screen = cam:WorldToViewportPoint(plr.HumanoidRootPart.Position)
+
+           if screen then
+
+               rat.Visible = toggleespmpt
+
+               rat.Thickness = Thickmpt
+
+               rat.From = Vector2.new(cam.ViewportSize.X / 2,cam.ViewportSize.Y / 1)
+
+               rat.To = Vector2.new(vector.X,vector.Y)
+
+               rat.Color = getgenv().mptespcolour
+
+               rat.Thickness = getgenv().mptespthickness
+
+               else
+
+                   rat.Visible = false
+
+           end
+
+           else
+
+               pcall(function()
+
+               rat.Visible = false
+
+               end)
+
+       end
+
+           if not plr:FindFirstChild'HumanoidRootPart' or not plr:FindFirstChild'HumanoidRootPart':IsDescendantOf(game:GetService'Workspace') then
+
+               pcall(function()
+
+               rat:Remove()
+
+               end)
+
+       end
+
+   end)
+
+end
+
+end
+
+   
+
+   for i,v in pairs(game:GetService'Workspace'.Game.Players:GetChildren()) do
+
+       esp(v)
+
+
+
+end
+
+   game:GetService'Workspace'.Game.Players.ChildAdded:Connect(function(plr)
+
+       esp(plr)
+
+   end)
+--
 
 --Server
 local Server = wxbhub_evade:MakeTab({
@@ -31,9 +185,20 @@ local function crasher()
     end
 end
 
+function notify()
+	Library:MakeNotification({
+		Name = "DDoS/Crash is started!",
+		Content = "Now there's no stopping him!",
+		Image = "rbxassetid://4483345998",
+		Time = 10
+	})
+end
+
 Server:AddButton({
 	Name = "DDoS/Crash Server",
 	Callback = function()
+		notify()
+		wait(0.1)
         crasher()
   	end    
 })
