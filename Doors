@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local wxbhub_doors = Library:MakeWindow({Name = "WxbHub / Doors", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub"})
+local wxbhub_doors = Library:MakeWindow({Name = "WxbHub / Doors", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Doors script v2.1"})
 
 -- Info
 local Info = wxbhub_doors:MakeTab({
@@ -14,7 +14,7 @@ local hubinfo1 = Info:AddSection({
 })
 
 local hubinfo2 = Info:AddSection({
-	Name = "> Our discord server: https://discord.gg/JkXj6zZmB8"
+	Name = "> Our discord server: copy in clipboard in key-system."
 })
 
 -- Player
@@ -38,24 +38,14 @@ Player:AddSlider({
 })
 
 Player:AddBind({
-	Name = "[bp] Jump",
+	Name = "Jump Keybind",
 	Default = Enum.KeyCode.Space,
 	Hold = false,
 	Callback = function()
         local plr = game:GetService'Players'.LocalPlayer
    	
         plr.Character:WaitForChild'Humanoid':ChangeState("Jumping")
-        wait(0.5)
 	end
-})
-
-Player:AddButton({
-	Name = "[bp] Fly",
-	Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nicuse/RobloxScripts/main/BypassedFly.lua"))() 
-
-        Fly(true)
-  	end    
 })
 
 -- Visuals
