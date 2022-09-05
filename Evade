@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1"})
+local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
 
 -- Info
 local Info = wxbhub_evade:MakeTab({
@@ -18,14 +18,14 @@ local hubinfo2 = Info:AddSection({
 })
 
 
---Player
-local Player = wxbhub_evade:MakeTab({
-	Name = "Player",
+--Movement
+local Movement = wxbhub_evade:MakeTab({
+	Name = "Movement",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-Player:AddBind({
+Movement:AddBind({
 	Name = "INF. Jump bind",
 	Default = Enum.KeyCode.Space,
 	Hold = false,
@@ -36,19 +36,17 @@ Player:AddBind({
 	end
 })
 
-Player:AddSlider({
-	Name = "Walkspeed",
+Movement:AddSlider({
+	Name = "Edge-Serf Speed",
 	Min = 0,
-	Max = 80,
-	Default = 5,
+	Max = 100,
+	Default = 0,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
-	ValueName = "bananas",
+	ValueName = "*10",
 	Callback = function(Value)
+		Value = Value * 10
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-		if game.Players.LocalPlayer.Character.Humanoid.WalkSpeed < Value then
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-		end
 	end    
 })
 
@@ -179,10 +177,11 @@ local Server = wxbhub_evade:MakeTab({
 })
 
 local function crasher()
-    while wait() do
-        game:GetService("ReplicatedStorage").Events.Reset:FireServer()
-        game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
-    end
+    while game:GetService("RunService").RenderStepped:wait() do
+    game:GetService("ReplicatedStorage").Events.Reset:FireServer()
+	wait(0.1)
+    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+	end
 end
 
 function notify()
@@ -195,7 +194,7 @@ function notify()
 end
 
 Server:AddButton({
-	Name = "DDoS/Crash Server",
+	Name = "DDoS/Crash Server (not worked)",
 	Callback = function()
 		notify()
 		wait(0.1)
