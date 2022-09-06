@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade v1.1", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
+local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade v1.2", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
 
 -- Info
 local Info = wxbhub_evade:MakeTab({
@@ -23,6 +23,47 @@ local Movement = wxbhub_evade:MakeTab({
 	Name = "Movement",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
+})
+
+getgenv().autojumpmpt = true
+
+function autojump()
+
+   local plr = game:GetService'Players'.LocalPlayer
+
+   repeat wait() until plr.Character ~= nil
+
+plr.Character:WaitForChild'Humanoid'.StateChanged:Connect(function(old,new)
+
+   if new == Enum.HumanoidStateType.Landed and autojumpmpt then
+
+       plr.Character:WaitForChild'Humanoid':ChangeState("Jumping")
+
+   end
+
+end)
+
+end
+
+autojump()
+
+game:GetService'Players'.LocalPlayer.CharacterAdded:Connect(autojump)
+
+Movement:AddBind({
+	Name = "Bunnyhop",
+	Default = Enum.KeyCode.Space,
+	Hold = false,
+	Callback = function()
+		if getgenv().autojumpmpt == true then
+
+			getgenv().autojumpmpt = false
+		 
+			else
+		 
+				getgenv().autojumpmpt = true
+		 
+		end
+	end
 })
 
 Movement:AddBind({
@@ -86,6 +127,40 @@ Visual:AddSlider({
 	end    
 })
 
+--Server
+local Server = wxbhub_evade:MakeTab({
+	Name = "Server",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local function crasher()
+    while game:GetService("RunService").RenderStepped:wait() do
+    game:GetService("ReplicatedStorage").Events.Reset:FireServer()
+	wait(0.1)
+    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+	end
+end
+
+local function notify()
+	Library:MakeNotification({
+		Name = "DDoS/Crash is started!",
+		Content = "Now there's no stopping him!",
+		Image = "rbxassetid://4483345998",
+		Time = 10
+	})
+end
+
+Server:AddButton({
+	Name = "DDoS/Crash Server (not worked)",
+	Callback = function()
+		notify()
+		wait(0.1)
+        crasher()
+  	end    
+})
+
+--Esp func
 local cam = workspace.CurrentCamera
 
 local rs = game:GetService'RunService'
@@ -168,36 +243,3 @@ end
 
    end)
 --
-
---Server
-local Server = wxbhub_evade:MakeTab({
-	Name = "Server",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local function crasher()
-    while game:GetService("RunService").RenderStepped:wait() do
-    game:GetService("ReplicatedStorage").Events.Reset:FireServer()
-	wait(0.1)
-    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
-	end
-end
-
-local function notify()
-	Library:MakeNotification({
-		Name = "DDoS/Crash is started!",
-		Content = "Now there's no stopping him!",
-		Image = "rbxassetid://4483345998",
-		Time = 10
-	})
-end
-
-Server:AddButton({
-	Name = "DDoS/Crash Server (not worked)",
-	Callback = function()
-		notify()
-		wait(0.1)
-        crasher()
-  	end    
-})
