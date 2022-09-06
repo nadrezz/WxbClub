@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade v1.2", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
+local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade v1.1", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
 
 -- Info
 local Info = wxbhub_evade:MakeTab({
@@ -51,7 +51,7 @@ game:GetService'Players'.LocalPlayer.CharacterAdded:Connect(autojump)
 
 Movement:AddBind({
 	Name = "Bunnyhop",
-	Default = Enum.KeyCode.Space,
+	Default = Enum.KeyCode.Z,
 	Hold = false,
 	Callback = function()
 		if getgenv().autojumpmpt == true then
