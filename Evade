@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
+local wxbhub_evade = Library:MakeWindow({Name = "WxbHub / Evade v1.1", HidePremium = false, SaveConfig = true, ConfigFolder = "WxbHub", IntroEnabled = "true", IntroText = "Evade script v1.1"})
 
 -- Info
 local Info = wxbhub_evade:MakeTab({
@@ -184,7 +184,7 @@ local function crasher()
 	end
 end
 
-function notify()
+local function notify()
 	Library:MakeNotification({
 		Name = "DDoS/Crash is started!",
 		Content = "Now there's no stopping him!",
